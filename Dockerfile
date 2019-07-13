@@ -1,8 +1,8 @@
 FROM amazonlinux:latest
 
 RUN set -x \
-  && yum update \
-  && yum install -y gcc48 \
+  && yum -y update \
+  && yum -y install gcc48 \
     gcc48-c++ \
     scons \
     git \
