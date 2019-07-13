@@ -27,10 +27,11 @@ RUN set -x \
   && cd /home/gem5user/gem5-spectre/gem5 \
   && scons -j`grep processor /proc/cpuinfo | wc -l` build/X86/gem5.opt \
   && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1 \
+  && echoc "=== CREATE SIMPLE O3 CONFIGURATION ===" \
   && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py \
   && echo "=== GEM5 RUN TEST ===" \
   && cd /home/gem5user/gem5-spectre \
-  && mkdir gem5out
+  && mkdir gem5out \
   && gem5/build/X86/gem5.opt \
     -d gem5out/runtest gem5/configs/learning_gem5/part1/two_level_o3ltage.py \
     -c gem5/tests/test-progs/hello/bin/x86/linux/hello \
