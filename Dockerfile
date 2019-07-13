@@ -4,6 +4,7 @@ RUN set -x \
   && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
+  && yum search python \
   && yum -y install compat-gcc-48 \
     compat-gcc-48-c++ \
     python2-pip \
@@ -12,7 +13,7 @@ RUN set -x \
     zlib-devel \
     m4 \
     wget \
-  && pip install six \
+  && pip install six python-config \
   && echo "=== ADD AN USER ===" \
   && useradd gem5user \
   && cp -r /etc/skel /home/gem5user \
