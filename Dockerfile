@@ -29,9 +29,9 @@ RUN set -x \
   && git submodule update --init --recursive --depth 1 \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
-  && CC=gcc48 CXX=g++48 scons build/X86/gem5.opt \
+  && CC=gcc48 CXX=g++48 scons --verbose build/X86/gem5.opt \
   && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1 \
-  && echoc "=== CREATE SIMPLE O3 CONFIGURATION ===" \
+  && echo "=== CREATE SIMPLE O3 CONFIGURATION ===" \
   && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py \
   && echo "=== GEM5 RUN TEST ===" \
   && cd /home/gem5user/gem5-spectre \
