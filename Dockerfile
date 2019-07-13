@@ -4,13 +4,14 @@ RUN set -x \
   && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
-  && yum search python \
-  && yum -y install compat-gcc-48 \
+  && yum -y install \
+    compat-gcc-48 \
     compat-gcc-48-c++ \
+    python-devel \
+    zlib-devel \
     python2-pip \
     scons \
     git \
-    zlib-devel \
     m4 \
     wget \
   && pip install six python-config \
