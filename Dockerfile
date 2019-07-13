@@ -4,6 +4,8 @@ RUN set -x \
   && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
+  && yum repolist all \
+  && yum search gcc \
   && yum -y install gcc48 \
     gcc48-c++ \
     python27-pip \
