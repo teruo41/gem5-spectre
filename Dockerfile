@@ -5,6 +5,7 @@ RUN set -x \
   && amazon-linux-extras install -y epel \
   && yum -y install gcc48 \
     gcc48-c++ \
+    python2 \
     scons \
     git \
     zlib-devel \
@@ -17,6 +18,7 @@ RUN set -x \
 USER gem5user
 RUN set -x \
   && cd /home/gem5user \
+  && git clone https://github.com/teruo41/gem5.spectre.git \
   && git clone https://gem5.googlesource.com/public/gem5 \
   && cd /home/gem5user/gem5 \
   && scons build/X86/gem5.opt \
