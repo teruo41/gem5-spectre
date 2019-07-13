@@ -5,9 +5,9 @@ RUN set -x \
   && yum -y update \
   && amazon-linux-extras install -y epel \
   && yum repolist all \
-  && yum search gcc \
-  && yum -y install gcc48 \
-    gcc48-c++ \
+  && yum search pip \
+  && yum -y install compat-gcc-48 \
+    compat-gcc-48-c++ \
     python27-pip \
     scons \
     git \
