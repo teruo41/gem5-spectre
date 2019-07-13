@@ -6,11 +6,13 @@ RUN set -x \
   && amazon-linux-extras install -y epel \
   && yum -y install gcc48 \
     gcc48-c++ \
+    python27-pip \
     scons \
     git \
     zlib-devel \
     m4 \
     wget \
+  && pip install six \
   && echo "=== ADD AN USER ===" \
   && useradd gem5user \
   && cp -r /etc/skel /home/gem5user \
