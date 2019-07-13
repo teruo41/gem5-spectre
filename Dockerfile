@@ -21,12 +21,19 @@ RUN set -x \
   && cd /home/gem5user \
   && echo "=== GIT CLONE GEM5-SPECTRE PROJECT ===" \
   && git clone https://github.com/teruo41/gem5-spectre.git --depth 1 \
-  && git clone https://gem5.googlesource.com/public/gem5 --depth 1 \
-  && cd /home/gem5user/gem5 \
-  && scons build/X86/gem5.opt \
-  && cd /home/gem5user/gem5/configs/learning_gem5/part1
-  && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py
-  && mkdir /home/gem5user/spectre \
-  && cd /home/gem5user/spectre \
-  && wget https://gist.githubusercontent.com/ErikAugust/724d4a969fb2c6ae1bbd7b2a9e3d4bb6/raw/41bf9bd0e7577fe3d7b822bbae1fec2e818dcdd6/spectre.c \
+  && cd /home/gem5user/gem5-spectre \
+  && git submodule update --init --recursive --depth 1 \
+  && echo "=== BUILD GEM5 ===" \
+  && cd /home/gem5user/gem5-spectre/gem5 \
+  && scons -j`grep processor /proc/cpuinfo | wc -l` build/X86/gem5.opt \
+  && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1
+  && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py \
+  && echo "=== GEM5 RUN TEST ===" \
+  && cd /home/gem5user/gem5-spectre \
+  && mkdir gem5out
+  && gem5/build/X86/gem5.opt \
+    -d gem5out/runtest gem5/configs/learning_gem5/part1/two_level_o3ltage.py \
+    -c gem5/tests/test-progs/hello/bin/x86/linux/hello \
+  && echo "=== BUILD SPECTRE ===" \
+  && cd /home/gem5user/gem5-spectre/spectre \
   && gcc spectre.c -o spectre -static
