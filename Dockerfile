@@ -1,17 +1,6 @@
 FROM amazonlinux:latest
 
 RUN set -x \
-  && echo "=== SET ROOT PASSWORD ===" \
-  && echo "root:admin" | chpasswd
-
-RUN set -x \
-  && echo "=== ADD AN USER ===" \
-  && useradd gem5user \
-  && echo "gem5user:gem5-spectre" | chpasswd \
-  && cp -r /etc/skel /home/gem5user \
-  && chown -R gem5user:gem5user /home/gem5user
-
-RUN set -x \
   && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
@@ -26,6 +15,17 @@ RUN set -x \
     m4 \
     protobuf-compiler \
     wget
+
+RUN set -x \
+  && echo "=== SET ROOT PASSWORD ===" \
+  && echo "admin\nadmin" | passwd --stdin
+
+RUN set -x \
+  && echo "=== ADD AN USER ===" \
+  && useradd gem5user \
+  && echo "gem5-spectre\ngem5-spectre" | passwd --stdin gem5user \
+  && cp -r /etc/skel /home/gem5user \
+  && chown -R gem5user:gem5user /home/gem5user
 
 USER gem5user
 
