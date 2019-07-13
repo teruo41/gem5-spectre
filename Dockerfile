@@ -27,7 +27,7 @@ RUN set -x \
   && git submodule update --init --recursive --depth 1 \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
-  && scons build/X86/gem5.opt \
+  && CC=gcc48 CXX=g++48 scons build/X86/gem5.opt \
   && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1 \
   && echoc "=== CREATE SIMPLE O3 CONFIGURATION ===" \
   && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py \
@@ -38,4 +38,4 @@ RUN set -x \
     -d gem5out/runtest gem5/configs/learning_gem5/part1/two_level_o3ltage.py \
   && echo "=== BUILD SPECTRE ===" \
   && cd /home/gem5user/gem5-spectre/spectre \
-  && gcc spectre.c -o spectre -static
+  && gcc48 spectre.c -o spectre -static
