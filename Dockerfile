@@ -34,7 +34,6 @@ RUN set -x \
   && mkdir gem5out \
   && gem5/build/X86/gem5.opt \
     -d gem5out/runtest gem5/configs/learning_gem5/part1/two_level_o3ltage.py \
-    -c gem5/tests/test-progs/hello/bin/x86/linux/hello \
   && echo "=== BUILD SPECTRE ===" \
   && cd /home/gem5user/gem5-spectre/spectre \
   && gcc spectre.c -o spectre -static
