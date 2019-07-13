@@ -4,11 +4,9 @@ RUN set -x \
   && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
-  && yum repolist all \
-  && yum search pip \
   && yum -y install compat-gcc-48 \
     compat-gcc-48-c++ \
-    python27-pip \
+    python2-pip \
     scons \
     git \
     zlib-devel \
