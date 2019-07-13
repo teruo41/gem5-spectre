@@ -5,6 +5,9 @@ RUN set -x \
   && yum -y update \
   && amazon-linux-extras install -y epel \
   && yum -y install \
+    passwd \
+    gcc \
+    gcc-c++ \
     compat-gcc-48 \
     compat-gcc-48-c++ \
     python-devel \
@@ -13,17 +16,18 @@ RUN set -x \
     scons \
     git \
     m4 \
-    protobuf-compiler \
+    gperftools-libs \
+    gperftools-devel \
     wget
 
 RUN set -x \
   && echo "=== SET ROOT PASSWORD ===" \
-  && echo "admin\nadmin" | passwd --stdin
+  && echo "root:admin" | chpasswd
 
 RUN set -x \
   && echo "=== ADD AN USER ===" \
   && useradd gem5user \
-  && echo "gem5-spectre\ngem5-spectre" | passwd --stdin gem5user \
+  && echo "gem5user:gem5-spectre" | chpasswd \
   && cp -r /etc/skel /home/gem5user \
   && chown -R gem5user:gem5user /home/gem5user
 
@@ -39,8 +43,6 @@ RUN set -x \
 RUN set -x \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
-  && which gcc48 \
-  && which g++48 \
   && CC=gcc48 CXX=g++48 scons --verbose build/X86/gem5.opt \
   && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1
 
