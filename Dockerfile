@@ -2,6 +2,7 @@ FROM amazonlinux:latest
 
 RUN set -x \
   && yum -y update \
+  && amazon-linux-extras install -y epel \
   && yum -y install gcc48 \
     gcc48-c++ \
     scons \
