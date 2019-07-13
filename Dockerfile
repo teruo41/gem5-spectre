@@ -1,6 +1,7 @@
 FROM amazonlinux:latest
 
 RUN set -x \
+  && echo "=== YUM UPDATE AND INSTALL PACKAGES ===" \
   && yum -y update \
   && amazon-linux-extras install -y epel \
   && yum -y install gcc48 \
@@ -10,6 +11,7 @@ RUN set -x \
     zlib-devel \
     m4 \
     wget \
+  && echo "=== ADD AN USER ===" \
   && useradd gem5user \
   && cp -r /etc/skel /home/gem5user \
   && chown -R gem5user:gem5user /home/gem5user
@@ -17,6 +19,7 @@ RUN set -x \
 USER gem5user
 RUN set -x \
   && cd /home/gem5user \
+  && echo "=== GIT CLONE GEM5-SPECTRE PROJECT ===" \
   && git clone https://github.com/teruo41/gem5-spectre.git --depth 1 \
   && git clone https://gem5.googlesource.com/public/gem5 --depth 1 \
   && cd /home/gem5user/gem5 \
