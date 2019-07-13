@@ -26,7 +26,7 @@ RUN set -x \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
   && scons -j`grep processor /proc/cpuinfo | wc -l` build/X86/gem5.opt \
-  && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1
+  && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1 \
   && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py \
   && echo "=== GEM5 RUN TEST ===" \
   && cd /home/gem5user/gem5-spectre \
