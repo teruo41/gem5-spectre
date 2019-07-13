@@ -18,7 +18,8 @@ RUN set -x \
   && echo "=== ADD AN USER ===" \
   && useradd gem5user \
   && cp -r /etc/skel /home/gem5user \
-  && chown -R gem5user:gem5user /home/gem5user
+  && chown -R gem5user:gem5user /home/gem5user \
+  && ls -lh /usr/lib64/
 
 USER gem5user
 RUN set -x \
