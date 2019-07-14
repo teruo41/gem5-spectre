@@ -6,6 +6,7 @@ RUN set -x \
   && amazon-linux-extras install -y epel \
   && yum -y install \
     passwd \
+    git \
     gcc \
     gcc-c++ \
     compat-gcc-48 \
@@ -14,7 +15,6 @@ RUN set -x \
     python-six \
     zlib-devel \
     scons \
-    git \
     m4 \
     gperftools-libs \
     gperftools-devel \
@@ -43,12 +43,11 @@ RUN set -x \
 RUN set -x \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
-  && CC=gcc48 CXX=g++48 scons --verbose build/X86/gem5.opt \
-  && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1
+  && CC=gcc48 CXX=g++48 scons build/X86/gem5.opt
 
 RUN set -x \
   && echo "=== CREATE SIMPLE O3 CONFIGURATION ===" \
-  && cd /home/gem5user/gem5-spectre/gem5 \
+  && cd /home/gem5user/gem5-spectre/gem5/configs/learning_gem5/part1 \
   && sed -e "s:TimingSimpleCPU():DerivO3CPU(branchPred=LTAGE()):" two_level.py > two_level_o3ltage.py
 
 RUN set -x \
