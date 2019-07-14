@@ -9,6 +9,7 @@ RUN set -x \
     git \
     gcc \
     gcc-c++ \
+    glibc-static \
     compat-gcc-48 \
     compat-gcc-48-c++ \
     python-devel \
