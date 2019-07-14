@@ -59,4 +59,6 @@ RUN set -x \
 RUN set -x \
   && echo "=== BUILD SPECTRE ===" \
   && cd /home/gem5user/gem5-spectre/spectre \
-  && gcc48 spectre.c -o spectre -static
+  && sed -i -e "s:(80): (80):" spectre.c \
+  && sed -i -e "s:\"?\":'?':" spectre.c \
+  && gcc48 -std=c99 spectre.c -o spectre -static
