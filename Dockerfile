@@ -44,7 +44,11 @@ RUN set -x \
 RUN set -x \
   && echo "=== BUILD GEM5 ===" \
   && cd /home/gem5user/gem5-spectre/gem5 \
-  && CC=gcc48 CXX=g++48 scons -j`grep processor /proc/cpuinro | wc -l` build/X86/gem5.opt
+  && CC=gcc48 CXX=g++48 scons -j`grep processor /proc/cpuinro | wc -l` build/X86/gem5.opt \
+  && mv build/X86/gem5.opt . \
+  && rm -rf build \
+  && mkdir -p build/X86 \
+  && mv gem5.opt build/X86/
 
 RUN set -x \
   && echo "=== CREATE SIMPLE O3 CONFIGURATION ===" \
